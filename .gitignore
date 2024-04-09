@@ -1,7 +1,7 @@
 *.log
 *.tmp
 *.obj
-
+obj/
 /bin/
 /build/
 /dist/
