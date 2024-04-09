@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj": {}
+    "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj": {
+    "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
+        "projectUniqueName": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
         "projectName": "OnlineStore.BLL",
-        "projectPath": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
-        "packagesPath": "C:\\Users\\ymkaa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\obj\\",
+        "projectPath": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
+        "packagesPath": "C:\\Users\\vadim\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ymkaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vadim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

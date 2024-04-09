@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xQcHR9cQFw+pnmPGz4xnNG0/u7d85qF8aVSAUNXsfnQk55d+wSR3KX4hyTr1XPBmoZH68toMn+q1eoTvwe5foA==",
+  "dgSpecHash": "78DQSZxa6BHRSPycWb1HR/rYtWaOfal/VtuwLf4TjtNgMPVcO1w4P2wa6qEzXs+PiZOhSU2SWagpH5LNa72Bvg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
+  "projectFilePath": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

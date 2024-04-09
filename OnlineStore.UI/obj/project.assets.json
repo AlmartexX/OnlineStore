@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ymkaa\\.nuget\\packages\\": {}
+    "C:\\Users\\vadim\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
+      "projectUniqueName": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
       "projectName": "OnlineStore.UI",
-      "projectPath": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
-      "packagesPath": "C:\\Users\\ymkaa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ymkaa\\Documents\\Практика\\Задачи\\Asp.net\\Проект\\OnlineStore\\OnlineStore.UI\\obj\\",
+      "projectPath": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
+      "packagesPath": "C:\\Users\\vadim\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vadim\\Source\\Repos\\OnlineStore\\OnlineStore.UI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ymkaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\vadim\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
