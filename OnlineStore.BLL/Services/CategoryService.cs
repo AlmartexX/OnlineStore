@@ -5,80 +5,82 @@ using OnlineStore.BLL.MappConfigs.Interfaces;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.BLL.Vallidation.Interfaces;
 using OnlineStore.DAL.Repositories.Interfaces;
+using OnlineStore.DAL.Repositories.UnitOfWork;
+using OnlineStore.DAL.Settings;
 
 namespace OnlineStore.BLL.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICategoryMapper _categoryMapper;
         private readonly ILogger<CategoryService> _logger;
         private readonly IValidationPipelineBehavior<CreateCategoryDTO, CreateCategoryDTO> _createCategoryValidator;
         public CategoryService(
-            ICategoryRepository categoryRepository,
+             IUnitOfWork unitOfWork,
             IMapper mapper,
             ICategoryMapper categoryMapper,
             ILogger<CategoryService> logger,
             IValidationPipelineBehavior<CreateCategoryDTO, CreateCategoryDTO> createCategoryValidator)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _categoryMapper = categoryMapper;
             _logger = logger;
             _createCategoryValidator = createCategoryValidator;
         }
 
-        public async Task<CreateCategoryDTO> CreateCategoryAsync(CreateCategoryDTO newCategory)
+        public async Task<CreateCategoryDTO> CreateCategoryAsync(CreateCategoryDTO newCategory, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started added process!");
 
             return await _createCategoryValidator.Process(newCategory, async () =>
             {
                 var category = _categoryMapper.MapToEntity(newCategory);
-                await _categoryRepository.AddAsync(category);
+                await _unitOfWork.Categories.AddAsync(category, cancellationToken);
                 _logger.LogInformation("--> Category added!");
 
                 return newCategory;
             });
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync()
+        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken )
         {
-            var сategories = await _categoryRepository.GetAllAsync();
+            var сategories = await _unitOfWork.Categories.GetAllAsync(paginationSettings, cancellationToken);
 
             return сategories.Select(category => _categoryMapper.MapToDTO(category));
         }
 
-        public async Task<CategoryDTO> GetCategoryByIdAsync(int? id)
+        public async Task<CategoryDTO> GetCategoryByIdAsync(int? id, CancellationToken cancellationToken)
         {
-            var category = await _categoryRepository.GetByIdAsync(id.Value);
+            var category = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
             if (category == null)
             {
-                throw new NotFoundException("No records with this id in database");
+                throw new NotFoundException("No categories with this id in database");
             }
 
             return _categoryMapper.MapToDTO(category);
         }
         
-        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int? id)
+        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int? id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started updated process!");
 
-            var existingCategory = await _categoryRepository.GetByIdAsync(id.Value);
+            var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
             _categoryMapper.MapToEntity(categoryDTO, existingCategory);
-            await _categoryRepository.UpdateAsync(existingCategory);
+            await _unitOfWork.Categories.UpdateAsync(existingCategory, cancellationToken);
             _logger.LogInformation("--> Category updateed!");
 
             return categoryDTO;
         }
 
-        public async Task<(bool, string)> DeleteCategoryAsync(int? id)
+        public async Task<(bool, string)> DeleteCategoryAsync(int? id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started deleted process!");
 
-            var category = await _categoryRepository.GetByIdAsync(id.Value);
-            await _categoryRepository.DeleteAsync(id.Value);
+            var category = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
+            await _unitOfWork.Categories.DeleteAsync(id.Value, cancellationToken);
             _logger.LogInformation("--> Category deleted!");
 
             return (true, "Category got deleted.");
