@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="ServiceCollection\" />
     <Folder Include="Middleware\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.DAL\OnlineStore.DAL.csproj" />
   </ItemGroup>
 
 </Project>
