@@ -49,16 +49,11 @@ namespace OnlineStore.UI.Middleware
 					context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 					message = "User not found";
 					break;
-				case ModelValidationFailedException:
-					context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-					message = "Invalid model";
-					break;
 				default:
 					context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 					message = "Internal server error";
 					break;
 			}
-
 
 			await context.Response.WriteAsync(new ErrorDetails()
 			{

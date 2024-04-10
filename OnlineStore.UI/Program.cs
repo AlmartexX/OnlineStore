@@ -1,10 +1,10 @@
-using OnlineStore.UI.Extensions;
+using OnlineStore.UI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
 app.UseCustomExceptionHandlerMiddleware();
 
+app.MapGet("/", () => "Hello World!");
 
 app.Run();
