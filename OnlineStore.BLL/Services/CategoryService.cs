@@ -16,33 +16,27 @@ namespace OnlineStore.BLL.Services
         private readonly IMapper _mapper;
         private readonly ICategoryMapper _categoryMapper;
         private readonly ILogger<CategoryService> _logger;
-        private readonly IValidationPipelineBehavior<CreateCategoryDTO, CreateCategoryDTO> _createCategoryValidator;
         public CategoryService(
              IUnitOfWork unitOfWork,
             IMapper mapper,
             ICategoryMapper categoryMapper,
-            ILogger<CategoryService> logger,
-            IValidationPipelineBehavior<CreateCategoryDTO, CreateCategoryDTO> createCategoryValidator)
+            ILogger<CategoryService> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _categoryMapper = categoryMapper;
             _logger = logger;
-            _createCategoryValidator = createCategoryValidator;
         }
 
         public async Task<CreateCategoryDTO> CreateCategoryAsync(CreateCategoryDTO newCategory, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started added process!");
+            
+            var category = _categoryMapper.MapToEntity(newCategory);
+            await _unitOfWork.Categories.AddAsync(category, cancellationToken);
+            _logger.LogInformation("--> Category added!");
 
-            return await _createCategoryValidator.Process(newCategory, async () =>
-            {
-                var category = _categoryMapper.MapToEntity(newCategory);
-                await _unitOfWork.Categories.AddAsync(category, cancellationToken);
-                _logger.LogInformation("--> Category added!");
-
-                return newCategory;
-            });
+            return newCategory;
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken )
@@ -68,6 +62,11 @@ namespace OnlineStore.BLL.Services
             _logger.LogInformation("--> Category started updated process!");
 
             var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
+            if (existingCategory == null)
+            {
+                throw new NotFoundException("No categories with this id in database");
+            }
+
             _categoryMapper.MapToEntity(categoryDTO, existingCategory);
             await _unitOfWork.Categories.UpdateAsync(existingCategory, cancellationToken);
             _logger.LogInformation("--> Category updateed!");
@@ -80,6 +79,11 @@ namespace OnlineStore.BLL.Services
             _logger.LogInformation("--> Category started deleted process!");
 
             var category = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
+            if (category == null)
+            {
+                throw new NotFoundException("No categories with this id in database");
+            }
+
             await _unitOfWork.Categories.DeleteAsync(id.Value, cancellationToken);
             _logger.LogInformation("--> Category deleted!");
 
