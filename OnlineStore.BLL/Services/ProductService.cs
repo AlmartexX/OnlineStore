@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using OnlineStore.BLL.DTO;
 using OnlineStore.BLL.MappConfigs.Interfaces;
 using OnlineStore.BLL.Services.Interfaces;
-using OnlineStore.BLL.Vallidation.Interfaces;
 using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
 using OnlineStore.DAL.Settings;
