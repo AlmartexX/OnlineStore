@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Context\" />
-    <Folder Include="Repositories\Interfaces\" />
+	  <Folder Include="Entities\" />
+	  <Folder Include="Context\" />
+	  <Folder Include="Repositories\Interfaces\" />
   </ItemGroup>
 
 </Project>
