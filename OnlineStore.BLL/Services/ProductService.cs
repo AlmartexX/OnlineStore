@@ -16,33 +16,28 @@ namespace OnlineStore.BLL.Services
         private readonly IMapper _mapper;
         private readonly IProductMapper _productMapper;
         private readonly ILogger<ProductService> _logger;
-        private readonly IValidationPipelineBehavior<CreateProductDTO, CreateProductDTO> _createProductValidator;
         public ProductService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IProductMapper productMapper,
-            ILogger<ProductService> logger,
-            IValidationPipelineBehavior<CreateProductDTO, CreateProductDTO> createProductValidator)
+            ILogger<ProductService> logger)
         {
             _unitOfWork =unitOfWork;
             _mapper = mapper;
             _productMapper = productMapper;
             _logger = logger;
-            _createProductValidator = createProductValidator;
         }
 
         public async Task<ProductDTO> CreateProductAsync(ProductDTO newProduct, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Product started added process!");
+            
+            var product = _productMapper.MapToEntity(newProduct);
+            await _unitOfWork.Products.AddAsync(product, cancellationToken);
+            _logger.LogInformation("--> Product added!");
 
-            return await _createProductValidator.Process(newProduct, async () =>
-            {
-                var product = _productMapper.MapToEntity(newProduct);
-                await _unitOfWork.Products.AddAsync(product, cancellationToken);
-                _logger.LogInformation("--> Product added!");
-
-                return newProduct;
-            });
+            return newProduct;
+            
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken)
@@ -79,6 +74,11 @@ namespace OnlineStore.BLL.Services
             _logger.LogInformation("--> Product started updated process!");
 
             var existingProduct = await _unitOfWork.Products.GetByIdAsync(id.Value, cancellationToken);
+            if (existingProduct == null)
+            {
+                throw new NotFoundException("No products with this id in database");
+            }
+
             _productMapper.MapToEntity(productDTO, existingProduct);
             await _unitOfWork.Products.UpdateAsync(existingProduct, cancellationToken);
             _logger.LogInformation("--> Product updateed!");
@@ -91,6 +91,11 @@ namespace OnlineStore.BLL.Services
             _logger.LogInformation("--> Product started deleted process!");
 
             var product = await _unitOfWork.Products.GetByIdAsync(id.Value, cancellationToken);
+            if (product == null)
+            {
+                throw new NotFoundException("No products with this id in database");
+            }
+
             await _unitOfWork.Products.DeleteAsync(id.Value, cancellationToken);
             _logger.LogInformation("--> Product deleted!");
 
