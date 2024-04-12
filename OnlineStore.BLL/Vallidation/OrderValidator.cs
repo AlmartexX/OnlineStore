@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnlineStore.BLL.DTO;
 
 namespace OnlineStore.BLL.Vallidation
 {
@@ -6,21 +7,25 @@ namespace OnlineStore.BLL.Vallidation
     {
         public OrderValidator()
         {
-            RuleFor(user => user.Id)
+            RuleFor(order => order.Id)
                 .NotEmpty()
-                .Must((user, id) => id == user.Id)
+                .Must((order, id) => id == order.Id)
                 .WithMessage("Id must not be changed!");
 
-            RuleFor(request => request.CreationDate)
+            RuleFor(order => order.CreationDate)
                 .NotEmpty()
                 .Must(date => date != default(DateTime))
                 .Must(date => date <= DateTime.Now)
                 .WithMessage("Creation date can't be in the future.");
 
-            RuleFor(item => item.UserId)
+            RuleFor(order => order.UserId)
                 .NotEmpty()
                 .GreaterThan(0)
                 .WithMessage("User id must not be changed!");
+
+            RuleFor(order => order.OrderItems)
+                .Must(orderItems => orderItems != null && orderItems.Any())
+                .WithMessage("Order must contain at least one item!");
         }
     }
 }

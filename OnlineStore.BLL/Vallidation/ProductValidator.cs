@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnlineStore.BLL.DTO;
 
 namespace OnlineStore.BLL.Vallidation
 {
@@ -21,7 +22,7 @@ namespace OnlineStore.BLL.Vallidation
                 .GreaterThan(0)
                 .WithMessage("Product can't be free. Price must be greater than zero.");
 
-            RuleFor(item => item.CategoryId)
+            RuleFor(product => product.CategoryId)
                 .NotEmpty()
                 .GreaterThan(0)
                 .WithMessage("Category id must not be changed!");

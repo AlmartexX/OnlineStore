@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnlineStore.BLL.DTO;
 
 namespace OnlineStore.BLL.Vallidation
 {
@@ -19,7 +20,7 @@ namespace OnlineStore.BLL.Vallidation
             RuleFor(item => item.Count)
                 .NotEmpty()
                 .GreaterThan(0)
-                .WithMessage("Id must not be changed!");
+                .WithMessage("Count of product must be greater than zero!");
         }
     }
 }

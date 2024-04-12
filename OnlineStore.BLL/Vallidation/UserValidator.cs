@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnlineStore.BLL.DTO;
 
 namespace OnlineStore.BLL.Vallidation
 {
@@ -21,7 +22,7 @@ namespace OnlineStore.BLL.Vallidation
                 .Length(2, 20)
                 .WithMessage("Surname must be between 2 and 20 characters.");
 
-            RuleFor(request => request.Birthdate)
+            RuleFor(user => user.Birthdate)
                 .NotEmpty()
                 .Must(date => date != default(DateOnly))
                 .Must(date => date <= DateOnly.FromDateTime(DateTime.Now))

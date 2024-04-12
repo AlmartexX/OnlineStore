@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using OnlineStore.BLL.DTO;
 
 namespace OnlineStore.BLL.Vallidation
 {
@@ -6,12 +7,12 @@ namespace OnlineStore.BLL.Vallidation
     {
         public CategoryValidator()
         {
-            RuleFor(user => user.Id)
+            RuleFor(category => category.Id)
                 .NotEmpty()
-                .Must((user, id) => id == user.Id)
+                .Must((category, id) => id == category.Id)
                 .WithMessage("Id must not be changed!");
 
-            RuleFor(user => user.Title)
+            RuleFor(category => category.Title)
                 .NotEmpty()
                 .Length(2, 12)
                 .WithMessage("Title must be between 2 and 12 characters.");
