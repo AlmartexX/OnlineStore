@@ -1,4 +1,5 @@
 ﻿using OnlineStore.DAL.Repositories.Interfaces;
+using OnlineStore.DAL.Settings;
 
 namespace OnlineStore.DAL.Repositories
 {
@@ -22,9 +23,12 @@ namespace OnlineStore.DAL.Repositories
             _context.Remove(entityToDelete);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(PaginationSettings paginationSettings, 
+            CancellationToken cancellationToken)
         {
             return await _context.Set<TEntity>()
+                .Skip((paginationSettings.PageNumber - 1) * paginationSettings.PageSize)
+                .Take(paginationSettings.PageSize)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
