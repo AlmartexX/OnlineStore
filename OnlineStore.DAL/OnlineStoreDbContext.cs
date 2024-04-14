@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore.DAL.Context.Entities;
 using OnlineStore.DAL.Context.EntitiesConfiguration;
+using OnlineStore.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

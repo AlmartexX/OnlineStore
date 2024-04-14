@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineStore.DAL.Context.Entities;
+using OnlineStore.DAL.Entities;
 
 namespace OnlineStore.DAL.Context.EntitiesConfiguration
 {

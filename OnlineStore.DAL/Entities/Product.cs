@@ -1,4 +1,4 @@
-﻿namespace OnlineStore.DAL.Context.Entities
+﻿namespace OnlineStore.DAL.Entities
 {
     public class Product
     {
