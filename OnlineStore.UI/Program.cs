@@ -4,7 +4,9 @@ using OnlineStore.UI.ServiceCollection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureRepositoryWrapper();
+builder.Services
+    .ConfigureRepositoryWrapper()
+    .ConfigureValidation();
 
 var app = builder.Build();
 
