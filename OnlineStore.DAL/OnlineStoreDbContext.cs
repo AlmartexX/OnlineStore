@@ -13,18 +13,21 @@ namespace OnlineStore.DAL
     {
         public OnlineStoreDbContext()
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
+        public OnlineStoreDbContext(DbContextOptions<OnlineStoreDbContext> options)
+        : base(options)
+        {
 
-        public DbSet<Category> Categorys => Set<Category>();
-        public DbSet<Order> Orders => Set<Order>();
-        public DbSet<OrderItem> OrderItems => Set<OrderItem>();
-        public DbSet<Product> Products => Set<Product>();
-        public DbSet<User> Users => Set<User>();
+        }
+        public virtual DbSet<Category> Categorys => Set<Category>();
+        public virtual DbSet<Order> Orders => Set<Order>();
+        public virtual DbSet<OrderItem> OrderItems => Set<OrderItem>();
+        public virtual DbSet<Product> Products => Set<Product>();
+        public virtual DbSet<User> Users => Set<User>();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=OnlineStoreDb;");
+            optionsBuilder.UseSqlServer("Name=ConnectionStrings:DefaultConnection");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
