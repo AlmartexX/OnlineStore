@@ -1,4 +1,4 @@
-﻿using FluentValidation.AspNetCore;
+using FluentValidation.AspNetCore;
 using OnlineStore.DAL.Repositories.UnitOfWork;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.BLL.Services;
@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
+
 namespace OnlineStore.UI.ServiceCollection
 {
     public static class ServiceCollectionExtension
@@ -18,6 +19,7 @@ namespace OnlineStore.UI.ServiceCollection
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();
             services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+            
             return services;
         }
 
@@ -28,6 +30,7 @@ namespace OnlineStore.UI.ServiceCollection
 
             return services;
         }
+
 
         public static IServiceCollection ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
