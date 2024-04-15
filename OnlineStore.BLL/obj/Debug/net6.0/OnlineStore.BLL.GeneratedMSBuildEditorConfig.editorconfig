@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = OnlineStore.BLL
-build_property.ProjectDir = C:\Users\ymkaa\Documents\GitHub\OnlineStore\OnlineStore.BLL\
+build_property.ProjectDir = D:\Учебные программы\Visual Studio 2022\Projects\OnlineStore\OnlineStore.BLL\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
