@@ -14,7 +14,7 @@ namespace OnlineStore.BLL.Services
             _jwtProvider = jwtProvider;
         }
 
-        public async Task<string> Login(string Email, string Password, CancellationToken cancellationToken)
+        public async Task<string> LoginAsync(string Email, string Password, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.Users.FindByEmailAsync(Email, cancellationToken);
             if (user != null)

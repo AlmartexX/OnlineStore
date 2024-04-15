@@ -2,7 +2,7 @@
 {
     public interface IAuthorizationService
     {
-        Task<string> Login(string Email, string Password, CancellationToken cancellationToken);
+        Task<string> LoginAsync(string Email, string Password, CancellationToken cancellationToken);
 
     }
 }
