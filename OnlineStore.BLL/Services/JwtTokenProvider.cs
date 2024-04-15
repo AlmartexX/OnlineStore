@@ -18,11 +18,16 @@ namespace OnlineStore.BLL.Services
         public string GenerateToken(User user)
         {
             Claim[] claims = [new("UserId", user.Id.ToString())];
-
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.UtcNow.AddHours(_options.ExpitesHours);
+            var issuer = _options.Issuer;
+            var audience = _options.Audience;
             var token = new JwtSecurityToken(
                 claims: claims,
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)), SecurityAlgorithms.HmacSha256),
-                expires: DateTime.UtcNow.AddHours(_options.ExpitesHours)
+                signingCredentials: signingCredentials,
+                expires: expires,
+                issuer: issuer,
+                audience: audience
                 );
             var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenValue;
