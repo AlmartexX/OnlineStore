@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceCollection\" />
     <Folder Include="Middleware\" />
   </ItemGroup>
 
