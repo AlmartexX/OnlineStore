@@ -4,10 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using OnlineStore.BLL.JwtInfrastructure.Models;
+using OnlineStore.BLL.Services.Interfaces;
 
 namespace OnlineStore.BLL.Services
 {
-    public class JwtTokenProvider
+    public class JwtTokenProvider : IJwtTokenProvider
     {
         private readonly TokenOptions _options;
         public JwtProvider(IOptions<TokenOptions> options)
