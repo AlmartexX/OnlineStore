@@ -19,6 +19,11 @@ namespace OnlineStore.BLL.MappConfigs
             return _mapper.Map<CategoryDTO>(category);
         }
 
+        public Category MapToEntity(CategoryDTO categoryDTO)
+        {
+            return _mapper.Map<Category>(categoryDTO);
+        }
+
         public Category MapToEntity(CreateCategoryDTO newCategoryDto)
         {
             return _mapper.Map<Category>(newCategoryDto);
