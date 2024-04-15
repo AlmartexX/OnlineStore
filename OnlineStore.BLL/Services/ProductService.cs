@@ -14,16 +14,19 @@ namespace OnlineStore.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IProductMapper _productMapper;
+        private readonly IPaginationSettingsMapper _pagerMapper;
         private readonly ILogger<ProductService> _logger;
         public ProductService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IProductMapper productMapper,
+            IPaginationSettingsMapper pageMapper,
             ILogger<ProductService> logger)
         {
             _unitOfWork =unitOfWork;
             _mapper = mapper;
             _productMapper = productMapper;
+            _pagerMapper = pageMapper;
             _logger = logger;
         }
 
@@ -39,9 +42,11 @@ namespace OnlineStore.BLL.Services
             
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetProductsAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductDTO>> GetProductsAsync(PaginationSettingsDTO paginationSettings, CancellationToken cancellationToken)
         {
-            var products = await _unitOfWork.Products.GetAllAsync(paginationSettings, cancellationToken);
+            var paginationSettingsEntity = _pagerMapper.MapToEntity(paginationSettings);
+
+            var products = await _unitOfWork.Products.GetAllAsync(paginationSettingsEntity, cancellationToken);
 
             return products.Select(product => _productMapper.MapToDTO(product));
         }

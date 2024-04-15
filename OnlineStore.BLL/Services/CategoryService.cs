@@ -14,16 +14,20 @@ namespace OnlineStore.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICategoryMapper _categoryMapper;
+        private readonly IPaginationSettingsMapper _pagerMapper;
         private readonly ILogger<CategoryService> _logger;
+
         public CategoryService(
-             IUnitOfWork unitOfWork,
+            IUnitOfWork unitOfWork,
             IMapper mapper,
             ICategoryMapper categoryMapper,
+            IPaginationSettingsMapper pagerMapper,
             ILogger<CategoryService> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _categoryMapper = categoryMapper;
+            _pagerMapper = pagerMapper;
             _logger = logger;
         }
 
@@ -38,9 +42,11 @@ namespace OnlineStore.BLL.Services
             return newCategory;
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken )
+        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettingsDTO paginationSettings, CancellationToken cancellationToken )
         {
-            var сategories = await _unitOfWork.Categories.GetAllAsync(paginationSettings, cancellationToken);
+            var paginationSettingsEntity = _pagerMapper.MapToEntity(paginationSettings);
+
+            var сategories = await _unitOfWork.Categories.GetAllAsync(paginationSettingsEntity, cancellationToken);
 
             return сategories.Select(category => _categoryMapper.MapToDTO(category));
         }
