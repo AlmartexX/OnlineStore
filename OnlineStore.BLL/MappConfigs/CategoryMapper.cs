@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using OnlineStore.BLL.DTO;
 using OnlineStore.BLL.MappConfigs.Interfaces;
 using OnlineStore.DAL.Entities;
@@ -19,9 +18,9 @@ namespace OnlineStore.BLL.MappConfigs
             return _mapper.Map<CategoryDTO>(category);
         }
 
-        public Category MapToEntity(CategoryDTO categoryDTO)
+        public Category MapToEntity(CategoryDTO categoryDTO, Category category)
         {
-            return _mapper.Map<Category>(categoryDTO);
+            return _mapper.Map(categoryDTO, category);
         }
 
         public Category MapToEntity(CreateCategoryDTO newCategoryDto)

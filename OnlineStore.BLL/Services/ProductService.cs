@@ -3,9 +3,8 @@ using Microsoft.Extensions.Logging;
 using OnlineStore.BLL.DTO;
 using OnlineStore.BLL.MappConfigs.Interfaces;
 using OnlineStore.BLL.Services.Interfaces;
-using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
-using OnlineStore.DAL.Settings;
+using static OnlineStore.BLL.Exceptions.ValidationException;
 
 namespace OnlineStore.BLL.Services
 {
@@ -30,7 +29,7 @@ namespace OnlineStore.BLL.Services
             _logger = logger;
         }
 
-        public async Task<ProductDTO> CreateProductAsync(ProductDTO newProduct, CancellationToken cancellationToken)
+        public async Task<CreateProductDTO> CreateProductAsync(CreateProductDTO newProduct, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Product started added process!");
             
@@ -73,18 +72,18 @@ namespace OnlineStore.BLL.Services
             return _productMapper.MapToDTO(product);
         }
 
-        public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO, int? id, CancellationToken cancellationToken)
+        public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO, int id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Product started updated process!");
 
-            var existingProduct = await _unitOfWork.Products.GetByIdAsync(id.Value, cancellationToken);
+            var existingProduct = await _unitOfWork.Products.GetByIdAsync(id, cancellationToken);
             if (existingProduct == null)
             {
                 throw new NotFoundException("No products with this id in database");
             }
 
             _productMapper.MapToEntity(productDTO, existingProduct);
-            await _unitOfWork.Products.UpdateAsync(existingProduct, cancellationToken);
+            await _unitOfWork.Products.UpdateAsync(id, existingProduct, cancellationToken);
             _logger.LogInformation("--> Product updateed!");
 
             return productDTO;

@@ -6,6 +6,7 @@ using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
 using OnlineStore.DAL.Settings;
+using static OnlineStore.BLL.Exceptions.ValidationException;
 
 namespace OnlineStore.BLL.Services
 {
@@ -62,18 +63,18 @@ namespace OnlineStore.BLL.Services
             return _categoryMapper.MapToDTO(category);
         }
         
-        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int? id, CancellationToken cancellationToken)
+        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started updated process!");
 
-            var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
+            var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id, cancellationToken);
             if (existingCategory == null)
             {
                 throw new NotFoundException("No categories with this id in database");
             }
 
             _categoryMapper.MapToEntity(categoryDTO, existingCategory);
-            await _unitOfWork.Categories.UpdateAsync(existingCategory, cancellationToken);
+            await _unitOfWork.Categories.UpdateAsync(id, existingCategory, cancellationToken);
             _logger.LogInformation("--> Category updateed!");
 
             return categoryDTO;
