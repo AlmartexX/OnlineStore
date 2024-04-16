@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using OnlineStore.DAL;
 using FluentValidation.AspNetCore;
 using OnlineStore.DAL.Repositories.UnitOfWork;
 using OnlineStore.BLL.Services.Interfaces;
@@ -22,7 +24,7 @@ namespace OnlineStore.UI.ServiceCollection
             
             return services;
         }
-
+      
         public static IServiceCollection ConfigureValidation(this IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation()
@@ -30,7 +32,13 @@ namespace OnlineStore.UI.ServiceCollection
 
             return services;
         }
-
+      
+        public static IServiceCollection ConfigureSqlServer(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<OnlineStoreDbContext>(options
+                => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            return services;
+        }
 
         public static IServiceCollection ConfigureAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
