@@ -6,6 +6,7 @@ using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
 using OnlineStore.DAL.Settings;
+using static OnlineStore.BLL.Exceptions.ValidationException;
 
 namespace OnlineStore.BLL.Services
 {
@@ -14,16 +15,20 @@ namespace OnlineStore.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly ICategoryMapper _categoryMapper;
+        private readonly IPaginationSettingsMapper _pagerMapper;
         private readonly ILogger<CategoryService> _logger;
+
         public CategoryService(
-             IUnitOfWork unitOfWork,
+            IUnitOfWork unitOfWork,
             IMapper mapper,
             ICategoryMapper categoryMapper,
+            IPaginationSettingsMapper pagerMapper,
             ILogger<CategoryService> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _categoryMapper = categoryMapper;
+            _pagerMapper = pagerMapper;
             _logger = logger;
         }
 
@@ -38,9 +43,11 @@ namespace OnlineStore.BLL.Services
             return newCategory;
         }
 
-        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken )
+        public async Task<IEnumerable<CategoryDTO>> GetCategoriesAsync(PaginationSettingsDTO paginationSettings, CancellationToken cancellationToken )
         {
-            var сategories = await _unitOfWork.Categories.GetAllAsync(paginationSettings, cancellationToken);
+            var paginationSettingsEntity = _pagerMapper.MapToEntity(paginationSettings);
+
+            var сategories = await _unitOfWork.Categories.GetAllAsync(paginationSettingsEntity, cancellationToken);
 
             return сategories.Select(category => _categoryMapper.MapToDTO(category));
         }
@@ -56,18 +63,18 @@ namespace OnlineStore.BLL.Services
             return _categoryMapper.MapToDTO(category);
         }
         
-        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int? id, CancellationToken cancellationToken)
+        public async Task<CategoryDTO> UpdateCategoryAsync(CategoryDTO categoryDTO, int id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Category started updated process!");
 
-            var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id.Value, cancellationToken);
+            var existingCategory = await _unitOfWork.Categories.GetByIdAsync(id, cancellationToken);
             if (existingCategory == null)
             {
                 throw new NotFoundException("No categories with this id in database");
             }
 
             _categoryMapper.MapToEntity(categoryDTO, existingCategory);
-            await _unitOfWork.Categories.UpdateAsync(existingCategory, cancellationToken);
+            await _unitOfWork.Categories.UpdateAsync(id, existingCategory, cancellationToken);
             _logger.LogInformation("--> Category updateed!");
 
             return categoryDTO;

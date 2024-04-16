@@ -1,4 +1,4 @@
-﻿namespace OnlineStore.DAL.Entities
+namespace OnlineStore.DAL.Entities
 {
     public class User
     {
@@ -8,6 +8,6 @@
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public DateTime Birthdate { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace OnlineStore.DAL.Entities
+namespace OnlineStore.DAL.Entities
 {
     public class Product
     {
@@ -6,7 +6,7 @@
         public string Title { get; set; }
         public float Price { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = null!;
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual Category Category { get; set; } = null!;
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }
 }

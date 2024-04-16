@@ -3,9 +3,8 @@ using Microsoft.Extensions.Logging;
 using OnlineStore.BLL.DTO;
 using OnlineStore.BLL.MappConfigs.Interfaces;
 using OnlineStore.BLL.Services.Interfaces;
-using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
-using OnlineStore.DAL.Settings;
+using static OnlineStore.BLL.Exceptions.ValidationException;
 
 namespace OnlineStore.BLL.Services
 {
@@ -14,20 +13,23 @@ namespace OnlineStore.BLL.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IProductMapper _productMapper;
+        private readonly IPaginationSettingsMapper _pagerMapper;
         private readonly ILogger<ProductService> _logger;
         public ProductService(
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IProductMapper productMapper,
+            IPaginationSettingsMapper pageMapper,
             ILogger<ProductService> logger)
         {
             _unitOfWork =unitOfWork;
             _mapper = mapper;
             _productMapper = productMapper;
+            _pagerMapper = pageMapper;
             _logger = logger;
         }
 
-        public async Task<ProductDTO> CreateProductAsync(ProductDTO newProduct, CancellationToken cancellationToken)
+        public async Task<CreateProductDTO> CreateProductAsync(CreateProductDTO newProduct, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Product started added process!");
             
@@ -39,9 +41,11 @@ namespace OnlineStore.BLL.Services
             
         }
 
-        public async Task<IEnumerable<ProductDTO>> GetProductsAsync(PaginationSettings paginationSettings, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductDTO>> GetProductsAsync(PaginationSettingsDTO paginationSettings, CancellationToken cancellationToken)
         {
-            var products = await _unitOfWork.Products.GetAllAsync(paginationSettings, cancellationToken);
+            var paginationSettingsEntity = _pagerMapper.MapToEntity(paginationSettings);
+
+            var products = await _unitOfWork.Products.GetAllAsync(paginationSettingsEntity, cancellationToken);
 
             return products.Select(product => _productMapper.MapToDTO(product));
         }
@@ -68,18 +72,18 @@ namespace OnlineStore.BLL.Services
             return _productMapper.MapToDTO(product);
         }
 
-        public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO, int? id, CancellationToken cancellationToken)
+        public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDTO, int id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("--> Product started updated process!");
 
-            var existingProduct = await _unitOfWork.Products.GetByIdAsync(id.Value, cancellationToken);
+            var existingProduct = await _unitOfWork.Products.GetByIdAsync(id, cancellationToken);
             if (existingProduct == null)
             {
                 throw new NotFoundException("No products with this id in database");
             }
 
             _productMapper.MapToEntity(productDTO, existingProduct);
-            await _unitOfWork.Products.UpdateAsync(existingProduct, cancellationToken);
+            await _unitOfWork.Products.UpdateAsync(id, existingProduct, cancellationToken);
             _logger.LogInformation("--> Product updateed!");
 
             return productDTO;
