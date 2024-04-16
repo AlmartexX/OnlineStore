@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineStore.DAL.Context;
-using OnlineStore.DAL.Repositories.Interfaces;
+﻿using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Settings;
 
 namespace OnlineStore.DAL.Repositories
@@ -28,10 +28,15 @@ namespace OnlineStore.DAL.Repositories
         public async Task<IEnumerable<TEntity>> GetAllAsync(PaginationSettings paginationSettings, 
             CancellationToken cancellationToken) =>
             await _context.Set<TEntity>()
+            CancellationToken cancellationToken)
+        {
+            return await _context.Set<TEntity>()
                 .Skip((paginationSettings.PageNumber - 1) * paginationSettings.PageSize)
                 .Take(paginationSettings.PageSize)
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
+
+        }
 
         public async Task<TEntity> GetByIdAsync(int id, CancellationToken cancellationToken)
         {

@@ -1,9 +1,6 @@
 namespace OnlineStore.DAL.Entities
 {
-<<<<<<< HEAD
-=======
 
->>>>>>> main
     public class Order
     {
         public int Id { get; set; }
