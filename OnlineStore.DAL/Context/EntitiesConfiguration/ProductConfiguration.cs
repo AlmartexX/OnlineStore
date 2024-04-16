@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnlineStore.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OnlineStore.DAL.Context.EntityConfiguration
+namespace OnlineStore.DAL.Context.EntitiesConfiguration
 {
     internal class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
@@ -20,7 +15,6 @@ namespace OnlineStore.DAL.Context.EntityConfiguration
             builder.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_Product_CategoryId");
-
 
         }
     }
