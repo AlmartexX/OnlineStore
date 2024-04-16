@@ -8,12 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Services\Interfaces\" />
-    <Folder Include="DTO\" />
-    <Folder Include="MappConfigs\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.DAL\OnlineStore.DAL.csproj" />
   </ItemGroup>
 
 </Project>
