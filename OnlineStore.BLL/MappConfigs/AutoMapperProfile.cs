@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using OnlineStore.BLL.DTO;
-using OnlineStore.BLL.DTO.User;
 using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Settings;
 
@@ -15,7 +14,6 @@ namespace OnlineStore.BLL.MappConfigs
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<CreateProductDTO, Product>();
             CreateMap<PaginationSettings, PaginationSettingsDTO>().ReverseMap();
-            CreateMap<User, UserDto>().ReverseMap();
         }
     }
 }

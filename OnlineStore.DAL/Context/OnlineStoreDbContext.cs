@@ -4,9 +4,9 @@ using OnlineStore.DAL.Entities;
 
 namespace OnlineStore.DAL.Context
 {
-    public class OnlineStoreDbContext : DbContext
+    internal class OnlineStoreDbContext : DbContext
     {
-        public OnlineStoreDbContext(DbContextOptions<OnlineStoreDbContext> options) : base(options)
+        public OnlineStoreDbContext()
         {
             //Database.EnsureDeleted();
             Database.EnsureCreated();
