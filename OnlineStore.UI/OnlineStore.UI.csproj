@@ -8,8 +8,16 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="ServiceCollection\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.BLL\OnlineStore.BLL.csproj" />
+    <ProjectReference Include="..\OnlineStore.DAL\OnlineStore.DAL.csproj" />
     <Folder Include="Middleware\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
   </ItemGroup>
 
 </Project>
