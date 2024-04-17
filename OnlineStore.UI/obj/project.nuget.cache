@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "cd7QN+sGmV/l7qSPMJ3RM1N4L7GMDQOTHtwObSMxUI3Pz9XLSMpkBOOlKGDWUvazmGmEBPxs5dzG7e15g4zo+Q==",
+  "dgSpecHash": "5zwsPNXBIuLDUQWStBMn0JxL0nbpf1i68qV4FHr+yrJjR7tY7en+y78f5MtT0shm7dxBRB8TAGoFe1UlgEU8Hw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ymkaa\\Documents\\GitHub\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
+  "projectFilePath": "D:\\Учебные программы\\Visual Studio 2022\\Projects\\OnlineStore\\OnlineStore.UI\\OnlineStore.UI.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Ошибка чтения файла кэша D:\\Учебные программы\\Visual Studio 2022\\Projects\\OnlineStore\\OnlineStore.UI\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'expectedPackageFiles', line 66, position 0."
+    }
+  ]
 }
