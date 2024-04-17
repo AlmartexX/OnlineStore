@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Wq8WWrOWmfbVJrr64v2Vbn2R+0q6dRa8vsLCiyPFB4rGGP4MKmAoFiU0VOXbyO5eN+KgMQlFUEqswbRymZOJcQ==",
+  "dgSpecHash": "pU6IHidFJ0c6GhNoEUHnyfAbhqVcnD2RvdykhognwWoAUXo0g4rMQWlUG0YDOL8RDofbWg0nCxf3DuW/0kK23A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ymkaa\\Documents\\GitHub\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Учебные программы\\Visual Studio 2022\\Projects\\OnlineStore\\OnlineStore.BLL\\OnlineStore.BLL.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\taras\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512"
+  ],
   "logs": []
 }
