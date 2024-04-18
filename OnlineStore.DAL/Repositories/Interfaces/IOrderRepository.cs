@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OnlineStore.DAL.Entities;
 
 namespace OnlineStore.DAL.Repositories.Interfaces
 {
-    internal class IOrderRepository
+    public interface IOrderRepository : IBaseRepository<Order>
     {
+        Task<List<Order>> GetAllOrdersByUserId(int userId, CancellationToken cancellationToken);
+        Task<Order> GetOrderByIdWithOrderItem(int id, CancellationToken cancellationToken);
     }
 }
