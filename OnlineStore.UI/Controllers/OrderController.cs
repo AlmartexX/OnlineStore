@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OnlineStore.BLL.DTO;
-using OnlineStore.BLL.Services;
 using OnlineStore.BLL.Services.Interfaces;
 
 namespace OnlineStore.UI.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/order")]
 	[ApiController]
 	public class OrderController : ControllerBase
 	{
@@ -21,11 +19,6 @@ namespace OnlineStore.UI.Controllers
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<ActionResult<CreateOrderDto>> CreateOrderAsync([FromBody] CreateOrderDto orderDTO, CancellationToken cancellationToken)
 		{
-			if (orderDTO == null)
-			{
-				return BadRequest("CreateOrderDto is null");
-			}
-
 			var createdOrder = await _orderService.CreateOrderAsync(orderDto, cancellationToken);
 
 			return CreatedAtAction(nameof(CreateOrderAsync), createdOrder);
@@ -42,7 +35,7 @@ namespace OnlineStore.UI.Controllers
 
 		[HttpGet("{id}")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByIdAsync(int id, [FromQuery] PaginationSettingsDTO paginationSettingsDTO, CancellationToken cancellationToken)
+		public async Task<ActionResult<IEnumerable<OrderDto>>> GetOrdersByIdAsync([FromQuery]int id, [FromQuery] PaginationSettingsDTO paginationSettingsDTO, CancellationToken cancellationToken)
 		{
 			var orders = await _orderService.GetOrdersByIdAsync(id, paginationSettingsDTO, cancellationToken);
 
@@ -51,7 +44,7 @@ namespace OnlineStore.UI.Controllers
 
 		[HttpGet("{id}/OrderItems")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<ActionResult<OrderDto>> GetOrderByIdIncludeOrderItemAsync(int id, CancellationToken cancellationToken)
+		public async Task<ActionResult<OrderDto>> GetOrderByIdIncludeOrderItemAsync([FromQuery]int id, CancellationToken cancellationToken)
 		{
 			var order = await _orderService.GetOrderByIdIncludeOrderItemAsync(id, cancellationToken);
 
