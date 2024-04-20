@@ -27,21 +27,21 @@ namespace OnlineStore.DAL.Repositories.UnitOfWork
             }
         }
 
-        public IOrderRepository Orders
-        {
-            get
-            {
-                return new OrderRepository(_context);
-            }
-        }
+        //public IOrderRepository Orders
+        //{
+        //    get
+        //    {
+        //        return new OrderRepository(_context);
+        //    }
+        //}
 
-        public IOrderItemRepository OrderItems
-        {
-            get
-            {
-                return new OrderItemRepository(_context);
-            }
-        }
+        //public IOrderItemRepository OrderItems
+        //{
+        //    get
+        //    {
+        //        return new OrderItemRepository(_context);
+        //    }
+        //}
 
         public IUserRepository Users
         {

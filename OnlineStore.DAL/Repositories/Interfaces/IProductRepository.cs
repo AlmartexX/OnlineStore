@@ -2,7 +2,8 @@
 
 namespace OnlineStore.DAL.Repositories.Interfaces
 {
-	public interface IProductRepository : IBaseRepository<Product>
-	{
-	}
+    public interface IProductRepository : IBaseRepository<Product>
+    {
+        Task<List<Product>> FindProductsByCategory(string categoryName, CancellationToken cancellationToken);
+    }
 }

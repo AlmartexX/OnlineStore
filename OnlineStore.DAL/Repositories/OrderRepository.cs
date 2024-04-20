@@ -20,5 +20,12 @@ namespace OnlineStore.DAL.Repositories
 				.AsNoTracking()
 				.ToListAsync(cancellationToken);
 		}
+    
+    public async Task<Order> GetOrderByIdWithOrderItem(int id, CancellationToken cancellationToken)
+    {
+        return await _context.Orders.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == id);
+    }
 	}
 }
+
+

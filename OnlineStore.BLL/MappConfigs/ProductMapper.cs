@@ -18,9 +18,9 @@ namespace OnlineStore.BLL.MappConfigs
             return _mapper.Map<ProductDTO>(product);
         }
 
-        public Product MapToEntity(ProductDTO productDTO)
+        public Product MapToEntity(ProductDTO productDTO, Product product)
         {
-            return _mapper.Map<Product>(productDTO);
+            return _mapper.Map(productDTO, product);
         }
 
         public Product MapToEntity(CreateProductDTO newProductDto)
