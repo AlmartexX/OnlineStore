@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineStore.DAL.Context.EntityConfiguration;
+using OnlineStore.DAL.Context.EntitiesConfiguration;
 using OnlineStore.DAL.Entities;
 
 namespace OnlineStore.DAL.Context

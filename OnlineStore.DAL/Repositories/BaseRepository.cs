@@ -1,9 +1,10 @@
-﻿using OnlineStore.DAL.Repositories.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DAL.Repositories.Interfaces;
 using OnlineStore.DAL.Settings;
 
 namespace OnlineStore.DAL.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity>
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         protected readonly OnlineStoreDbContext _context;
 

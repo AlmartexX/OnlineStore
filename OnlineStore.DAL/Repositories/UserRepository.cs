@@ -1,4 +1,6 @@
 ﻿using OnlineStore.DAL.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineStore.DAL.Entities;
 using OnlineStore.DAL.Repositories.Interfaces;
 
 namespace OnlineStore.DAL.Repositories

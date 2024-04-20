@@ -6,8 +6,8 @@ namespace OnlineStore.DAL.Repositories.UnitOfWork
     {
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
-        IOrderRepository Orders { get; }
-        IOrderItemRepository OrderItems { get; }
+       // IOrderRepository Orders { get; }
+        //IOrderItemRepository OrderItems { get; }
         IUserRepository Users { get; }
 
         Task SaveChangesAsync(CancellationToken cancellationToken);
