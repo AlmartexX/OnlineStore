@@ -1,4 +1,9 @@
-﻿using OnlineStore.BLL.Exceptions;
+﻿using AutoMapper;
+using OnlineStore.BLL.DTO.User;
+using OnlineStore.BLL.Exceptions;
+using OnlineStore.BLL.JwtInfrastructure;
+using OnlineStore.BLL.Services.Interfaces;
+using OnlineStore.DAL.Entities;
 using OnlineStore.BLL.JwtInfrastructure;
 using OnlineStore.BLL.Services.Interfaces;
 using OnlineStore.DAL.Repositories.UnitOfWork;
@@ -9,6 +14,7 @@ namespace OnlineStore.BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtTokenProvider _jwtProvider;
+        private readonly IMapper _mapper;
 
         public AuthorizationService(IUnitOfWork unitOfWork, IJwtTokenProvider jwtProvider)
         {
@@ -29,6 +35,39 @@ namespace OnlineStore.BLL.Services
 
             }
             else { throw new UserNotFoundException("Uncorrected email or user is not exist"); }
+        }
+
+        public async Task<UserDto> RegisterUserAsync(RegisterUserDto dto, CancellationToken cancellationToken)
+        {
+            if (dto.Password != dto.ConfirmPassword)
+            {
+                throw new Exception("Password not confirm");
+            }
+
+            try
+            {
+                var response = await _unitOfWork.Users.FindByEmailAsync(dto.Login, cancellationToken);
+
+                if (response is not null)
+                {
+                    throw new Exception("User is already exists");
+                }
+
+                response = new User()
+                {
+                    Email = dto.Login,
+                    PasswordHash = PasswordHasher.GetHash(dto.Password)
+                };
+
+                await _unitOfWork.Users.AddAsync(response, cancellationToken);
+
+                return _mapper.Map<UserDto>(response);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
