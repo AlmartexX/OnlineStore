@@ -1,5 +1,7 @@
-﻿using OnlineStore.BLL.JwtInfrastructure;
+﻿using OnlineStore.BLL.Exceptions;
+using OnlineStore.BLL.JwtInfrastructure;
 using OnlineStore.BLL.Services.Interfaces;
+using OnlineStore.DAL.Repositories.UnitOfWork;
 
 namespace OnlineStore.BLL.Services
 {
